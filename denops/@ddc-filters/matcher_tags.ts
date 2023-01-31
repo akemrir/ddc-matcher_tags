@@ -2,10 +2,13 @@ import {
   BaseFilter,
   Item,
   SourceOptions
-} from "https://deno.land/x/ddc_vim@v3.3.0/types.ts";
+} from "https://deno.land/x/ddc_vim@v3.4.0/types.ts";
 
 type Params = {
   maxMatchLength: number;
+  completeStr: string;
+  splitByRegexp: string;
+  splitUnionString: string;
 };
 
 export class Filter extends BaseFilter<Params> {
@@ -21,8 +24,8 @@ export class Filter extends BaseFilter<Params> {
         ? args.completeStr
         : args.completeStr.slice(0, maxMatchLength);
 
-    const splitUnionString = args.sourceOptions.splitUnionString;
-    const splitByRegexp = args.sourceOptions.splitByRegexp;
+    const splitUnionString = args.filterParams.splitUnionString;
+    const splitByRegexp = args.filterParams.splitByRegexp;
 
     if (splitByRegexp != "" && splitUnionString != "") {
       compareStr = compareStr.split(new RegExp(splitByRegexp)).join(splitUnionString);
